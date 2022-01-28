@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TrainingDiary" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/color_iris</item>
+        <item name="colorPrimaryDark">@color/grey_stronger</item>
+        <item name="colorAccent">@color/color_stronger</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
