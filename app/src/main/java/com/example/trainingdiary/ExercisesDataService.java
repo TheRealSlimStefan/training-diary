@@ -1,13 +1,11 @@
 package com.example.trainingdiary;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.trainingdiary.fragments.menu.AddExerciseFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,40 +19,44 @@ public class ExercisesDataService {
         this.context = context;
     }
 
-    public String[] getExercises(){
-        String url ="https://wger.de/api/v2/exercise/?format=json";
+    public interface VolleyResponseListener{
+        public void onError(String message);
 
+        public void onResponse(JSONArray[] response);
+
+
+    }
+
+    public JSONArray getExercises(VolleyResponseListener volleyResponseListener){
+        String url ="https://ancient-springs-50859.herokuapp.com/exercises";
+        final JSONArray[] exercises = {null};
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("JESTEM JESTEM");
-                JSONArray exercises =null;
+
                 JSONObject exercise = null;
                 String exerciseName = "";
                 try {
-                    exercises = response.getJSONArray("results");
-                    for (int i = 0; i < exercises.length(); i++) {
-                        exerciseName = exercises.getJSONObject(i).getString("name");
-                        System.out.println(exerciseName);
+                    exercises[0] = response.getJSONArray("exercises");
 
-                    }
-                    exerciseName = exercises.getJSONObject(0).getString("name");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 //Toast.makeText(AddExerciseFragment.this.getContext(), exerciseName, Toast.LENGTH_LONG).show();
+                volleyResponseListener.onResponse(exercises);
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(AddExerciseFragment.this.getContext(), "ERROR", Toast.LENGTH_LONG).show();
+                        System.out.println("errrorr");
+                        volleyResponseListener.onError("error");
                     }
                 });
 
         MySingleton.getInstance(context).addToRequestQueue(request);
-        return null;
+return exercises[0];
     }
 
 //    public String getExerciseID(String name){

@@ -6,22 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/line"
-        android:fontFamily="@font/roboto"
-        android:gravity="center"
-        android:letterSpacing="0.1"
-        android:text="@string/add_exercise_title"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/edtExerciseName"
         android:layout_width="wrap_content"
@@ -74,12 +58,12 @@
         android:id="@+id/nameExerciseTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:text="@string/name_exercise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"/>
 
     <Button
         android:id="@+id/confirmExerciseButton"
@@ -87,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
         android:text="@string/add_exercise_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

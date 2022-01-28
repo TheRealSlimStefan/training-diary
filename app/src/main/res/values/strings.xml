@@ -4,11 +4,14 @@
     <string name="no_exercises">Brak stworzonych ćwiczeń</string>
     <string name="add_training_title">STWÓRZ TRENING</string>
     <string name="add_exercise_title">DODAJ ĆWICZENIE DO TRENINGU</string>
-    <string name="your_exercises_title">TWOJE ĆWICZENIA</string>
-    <string name="add_training_button">Dodaj ćwiczenie</string>
+    <string name="your_exercises_title">ĆWICZENIA</string>
+    <string name="your_trainings_title">TWOJE PLANY TRENINGOWE</string>
+    <string name="add_your_exercise_button">Dodaj własne ćwiczenie</string>
+    <string name="add_api_exercise_button">Dodaj ćwiczenie z API</string>
     <string name="name_exercise">Nazwa</string>
     <string name="name_exercise_placeholder">Podaj nazwę ćwiczenia</string>
     <string name="main_muscle_part">Główna partia mięśniowa</string>
+    <string name="exercise_description">Opis</string>
     <string name="add_exercise_button">Dodaj</string>
     <string-array name="parts">
         <item>Barki</item>

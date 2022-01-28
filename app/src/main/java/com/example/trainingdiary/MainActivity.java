@@ -12,13 +12,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.trainingdiary.authorization.RegistrationActivity;
-import com.example.trainingdiary.fragments.menu.AddExerciseFragment;
-import com.example.trainingdiary.fragments.menu.AddWorkoutFragment;
-import com.example.trainingdiary.fragments.menu.AllExercisesFragment;
-import com.example.trainingdiary.fragments.menu.AllWorkoutsFragment;
-import com.example.trainingdiary.fragments.menu.HistoryFragment;
-import com.example.trainingdiary.fragments.menu.ProfileFragment;
+import com.example.trainingdiary.fragments.AddAPIExerciseFragment;
+import com.example.trainingdiary.fragments.AddExerciseFragment;
+import com.example.trainingdiary.fragments.AddWorkoutFragment;
+import com.example.trainingdiary.fragments.AllExercisesFragment;
+import com.example.trainingdiary.fragments.AllWorkoutsFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(MainActivity.this, "Firebase connection Succes", Toast.LENGTH_LONG).show();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationMenu);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.setSelectedItemId(R.id.nav_add_workout);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddWorkoutFragment()).commit();
@@ -49,12 +47,20 @@ public class MainActivity extends AppCompatActivity {
                 // We use a String here, but any type that can be put in a Bundle is supported
                 String result = bundle.getString("bundleKey");
                 switch(result){
-                    case "result":
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddExerciseFragment()).commit();
+//                    case "result":
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddExerciseFragment()).commit();
+//                        break;
+                    case "addAPIExerciseButtonClicked":
+                        System.out.println("TAK JESTEM KLIKNIETY");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddAPIExerciseFragment()).commit();
                         break;
                     case "addExerciseButtonClicked":
                         addExerciseToDatabase();
                         break;
+                    case "addExerciseActionButtonClicked":
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddExerciseFragment()).commit();
+                        break;
+
                 }
                 // Do something with the result
             }
@@ -88,9 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MainActivity.this, "Dodano ćwiczenie", Toast.LENGTH_SHORT).show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddWorkoutFragment()).commit();
-//TODO Stworzyć liste do której będzie się dodawać wybierane/ tworzone ćwiczenia
-                //todo zapisywać tworozne ćwiczenia na liście wszystkich ćwiczeń
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AllExercisesFragment()).commit();
             }
         });
 
@@ -106,24 +110,19 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.nav_add_workout:
                             selectedFragment = new AddWorkoutFragment();
                             break;
-                        case R.id.nav_history:
-                            selectedFragment = new HistoryFragment();
-                            break;
                         case R.id.nav_workouts:
                             selectedFragment = new AllWorkoutsFragment();
                             break;
                         case R.id.nav_exercises:
                             selectedFragment = new AllExercisesFragment();
                             break;
-                        case R.id.nav_profile:
-                            selectedFragment = new ProfileFragment();
-                            break;
                         default:
                             selectedFragment = new AddWorkoutFragment();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
-                    return true;}
+                return true;}
             };
+
 }

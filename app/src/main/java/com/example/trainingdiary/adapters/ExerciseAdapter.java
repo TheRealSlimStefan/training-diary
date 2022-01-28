@@ -1,8 +1,11 @@
 package com.example.trainingdiary.adapters;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingdiary.Exercise;
 import com.example.trainingdiary.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,8 +35,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         view = inflater.inflate(R.layout.list_item_layout_exercise, parent, false);
 
         if(flag){
-            TextView title =  (TextView) view.findViewById(R.id.txtExerciseItem);
-            title.setText("Brak stworzonych ćwiczeń");
+           TextView title =  (TextView) view.findViewById(R.id.txtExerciseItem);
+           title.setText("Brak stworzonych ćwiczeń");
         }
 
         return new ExerciseAdapter.ExerciseViewHolder(view);
@@ -48,6 +52,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             String musclePart = data.get(position).getMusclePart();
             System.out.println(musclePart);
             holder.txtViewMusclePart.setText((musclePart));
+
         }
 
     }
@@ -63,13 +68,26 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         }
     }
 
+    public void removeItem(int position){
+        data.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Exercise exercise, int position){
+        data.add(position, exercise);
+        notifyItemInserted(position);
+    }
+
     public class ExerciseViewHolder extends RecyclerView.ViewHolder{
         TextView txtView, txtViewMusclePart;
+        public LinearLayout viewBackground, viewForeground;
 
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             txtView = (TextView) itemView.findViewById(R.id.txtExerciseItem);
             txtViewMusclePart = (TextView) itemView.findViewById(R.id.txtExerciseItemPart);
+            viewBackground = (LinearLayout) itemView.findViewById(R.id.view_background);
+            viewForeground = (LinearLayout) itemView.findViewById(R.id.view_foreground);
         }
     }
 }

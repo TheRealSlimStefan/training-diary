@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:orientation="horizontal"
-    android:background="@color/color_light"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginBottom="0dp">
+    android:layout_height="84dp">
 
-    <TextView
-        android:id="@+id/txtExerciseItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:paddingLeft="16dp"
-        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/txtExerciseItemPart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:paddingBottom="5dp"
-        android:text="TextView"
-        android:textColor="@color/grey_stronger" />
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/view_background"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/color_light"
+        android:backgroundTint="@color/red"
+        android:orientation="horizontal">
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            android:id="@+id/txtDeleteItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:paddingLeft="16dp"
+            android:text="DELETE"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_delete_24" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/color_light"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtExerciseItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:paddingLeft="16dp"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/txtExerciseItemPart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:text="TextView"
+            android:textColor="@color/grey_stronger" />
+    </LinearLayout>
+</FrameLayout>

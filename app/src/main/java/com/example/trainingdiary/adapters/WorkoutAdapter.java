@@ -30,8 +30,8 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         view = inflater.inflate(R.layout.list_item_layout_workout, parent, false);
 
         if(flag){
-            TextView txtView = (TextView) view.findViewById(R.id.txtExerciseItem);
-            txtView.setText("Brak stworzonych treningów");
+           TextView txtView = (TextView) view.findViewById(R.id.txtExerciseItem);
+           txtView.setText("Brak stworzonych treningów");
         }
 
         return new WorkoutViewHolder(view);
@@ -59,9 +59,9 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         ImageView imgIcon;
         TextView txtView, txtViewNoTraining;
 
-        public WorkoutViewHolder(@NonNull View itemView) {
-            super(itemView);
-            txtView = (TextView) itemView.findViewById(R.id.txtExerciseItem);
-        }
-    }
+       public WorkoutViewHolder(@NonNull View itemView) {
+           super(itemView);
+           txtView = (TextView) itemView.findViewById(R.id.txtExerciseItem);
+       }
+   }
 }
