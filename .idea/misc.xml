@@ -14,6 +14,25 @@
         <entry key="..\:/Users/19sma/OneDrive/Desktop/Studia/SM/TrainingDiary/app/src/main/res/layout/activity_registration.xml" value="0.1" />
         <entry key="..\:/Users/19sma/OneDrive/Desktop/Studia/SM/TrainingDiary/app/src/main/res/layout/dropdown_muscle_parts_item.xml" value="0.1" />
         <entry key="..\:/Users/19sma/OneDrive/Desktop/Studia/SM/TrainingDiary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1259259259259259" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/drawable/ic_article.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/drawable/line.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/activity_login.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/activity_main.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/activity_registration.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/dropdown_exercises_api_item.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/dropdown_muscle_parts_item.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_add_api_exercise.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_add_exercise.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_add_user_exercise.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_add_workout.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_all_exercises.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_all_workouts.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/fragment_improve_technique.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/list_item_layout_exercise.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/list_item_layout_technique.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/layout/list_item_layout_workout.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/menu/bottom_navigation.xml" value="0.21875" />
+        <entry key="..\:/Users/19sma/OneDrive/Desktop/clone repository/training-diary/app/src/main/res/menu/search_menu.xml" value="0.21875" />
       </map>
     </option>
   </component>

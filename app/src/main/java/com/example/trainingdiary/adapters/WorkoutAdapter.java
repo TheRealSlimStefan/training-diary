@@ -3,65 +3,81 @@ package com.example.trainingdiary.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingdiary.R;
+import com.example.trainingdiary.objectsClasses.Workout;
+
+import java.util.ArrayList;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
 
-    private String[] data;
+    private ArrayList<Workout> data;
     private boolean flag = false;
 
-    public WorkoutAdapter(String[] data){
+    public WorkoutAdapter( ArrayList<Workout> data){
         this.data = data;
     }
 
 
     @NonNull
     @Override
-    public WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkoutAdapter.WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view;
-
         view = inflater.inflate(R.layout.list_item_layout_workout, parent, false);
 
         if(flag){
-           TextView txtView = (TextView) view.findViewById(R.id.txtExerciseItem);
-           txtView.setText("Brak stworzonych treningów");
+            TextView title =  (TextView) view.findViewById(R.id.txt_workout_item);
+            title.setText(R.string.no_workouts);
         }
 
-        return new WorkoutViewHolder(view);
+        return new WorkoutAdapter.WorkoutViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
-        String title = data[position];
-        holder.txtView.setText((title));
+    public void onBindViewHolder(@NonNull WorkoutAdapter.WorkoutViewHolder holder, int position) {
+        if(!flag){
+            String exercieName = data.get(position).getName();
+            holder.txtView.setText((exercieName));
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        if(data.length == 0) {
+        if(data.size() == 0) {
             flag = true;
             return 1;
         }else{
             flag = false;
-            return data.length;
+            return data.size();
         }
     }
 
-    public class WorkoutViewHolder extends RecyclerView.ViewHolder{
-        ImageView imgIcon;
-        TextView txtView, txtViewNoTraining;
+    public void removeItem(int position){
+        data.remove(position);
+        notifyItemRemoved(position);
+    }
 
-       public WorkoutViewHolder(@NonNull View itemView) {
-           super(itemView);
-           txtView = (TextView) itemView.findViewById(R.id.txtExerciseItem);
-       }
-   }
+    public void restoreItem(Workout workout, int position){
+        data.add(position, workout);
+        notifyItemInserted(position);
+    }
+
+    public class WorkoutViewHolder extends RecyclerView.ViewHolder{
+        TextView txtView;
+        public LinearLayout viewWorkoutBackground, viewWorkoutForeground;
+
+        public WorkoutViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtView = (TextView) itemView.findViewById(R.id.txt_workout_item);
+            viewWorkoutBackground = (LinearLayout) itemView.findViewById(R.id.view_workout_background);
+            viewWorkoutForeground = (LinearLayout) itemView.findViewById(R.id.view_workout_foreground);
+        }
+    }
 }

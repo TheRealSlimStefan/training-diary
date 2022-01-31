@@ -3,9 +3,7 @@ package com.example.trainingdiary.authorization;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,22 +11,39 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.example.trainingdiary.MainActivity;
 import com.example.trainingdiary.R;
-import com.example.trainingdiary.User;
+import com.example.trainingdiary.objectsClasses.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     EditText edtTxtName, edtTxtSurname, edtTxtEmail, edtPassword, edtConfirmPassword;
     Button btnRegister;
     private FirebaseAuth mAuth;
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("name", edtTxtName.getText().toString());
+        outState.putString("surname", edtTxtSurname.getText().toString());
+        outState.putString("email", edtTxtEmail.getText().toString());
+        outState.putString("password", edtPassword.getText().toString());
+        outState.putString("cpassword", edtConfirmPassword.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        edtTxtName.setText(savedInstanceState.getString("name"));
+        edtTxtSurname.setText(savedInstanceState.getString("surname"));
+        edtTxtEmail.setText(savedInstanceState.getString("email"));
+        edtPassword.setText(savedInstanceState.getString("password"));
+        edtConfirmPassword.setText(savedInstanceState.getString("cpassword"));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +66,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.registerBtn:
-//                startActivity(new Intent(this, MainActivity.class));
                 registerUser();
                 break;
         }
@@ -113,29 +127,29 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        //TODO: ProgressBar dodać tutaj i w layout
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(name, surname, email);
+                            User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),name, surname, email);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(RegistrationActivity.this, "Dodano użytkownika", Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                                        }else{
-                                            Toast.makeText(RegistrationActivity.this, "Użytkownik nie został dodany", Toast.LENGTH_LONG).show();
-                                        }
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(RegistrationActivity.this, "Dodano użytkownika", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                                        RegistrationActivity.this.finish();
+                                    }else{
+                                        Toast.makeText(RegistrationActivity.this, "Użytkownik nie został dodany", Toast.LENGTH_LONG).show();
                                     }
-                                });
+                                }
+                            });
                         }else{
                             Toast.makeText(RegistrationActivity.this, "Rejestracja się nie powiodła", Toast.LENGTH_LONG).show();
                         }

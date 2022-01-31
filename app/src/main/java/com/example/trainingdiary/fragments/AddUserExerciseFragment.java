@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,28 +19,30 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import com.example.trainingdiary.objectsClasses.Exercise;
-import com.example.trainingdiary.ExercisesDataService;
 import com.example.trainingdiary.R;
-import com.example.trainingdiary.databinding.FragmentAddApiExerciseBinding;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.example.trainingdiary.databinding.FragmentAddUserExerciseBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AddAPIExerciseFragment extends Fragment{
+public class AddUserExerciseFragment extends Fragment {
 
-    FragmentAddApiExerciseBinding binding;
-    ExercisesDataService exercisesDataService;
-    ArrayList<String> exercisesList = new ArrayList<>();
+    FragmentAddUserExerciseBinding binding;
+    ArrayList<String> exercisesNameList = new ArrayList<String>();
+    ArrayList<Exercise> exercisesList = new ArrayList<Exercise>();
     TextView txtName, txtMusclePart, txtDescription;
     Button confirm;
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
-    JSONArray apiData;
     SearchView searchView;
     private static final String EXERCISE_KEY = "exercise_key";
     private Exercise exercise = new Exercise();
+    DatabaseReference reff;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,55 +52,45 @@ public class AddAPIExerciseFragment extends Fragment{
         ));
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        System.out.println("onViewStateRestored");
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentAddApiExerciseBinding.inflate(inflater, container, false);
+        binding = FragmentAddUserExerciseBinding.inflate(inflater, container, false);
         listView = binding.listView;
-
-        exercisesDataService = new ExercisesDataService(AddAPIExerciseFragment.this.getContext());
-
-        exercisesDataService.getExercises(new ExercisesDataService.VolleyResponseListener() {
-            @Override
-            public void onError(String message) {
-                Toast.makeText(AddAPIExerciseFragment.this.getContext(), "error", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(JSONArray[] response) {
-                String exerciseName = "";
-                apiData = response[0];
-                for (int i = 0; i < response[0].length() - 1 ; i++) {
-                    try {
-                        exerciseName = response[0].getJSONObject(i).getString("title");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    exercisesList.add(exerciseName);
-                }
-                arrayAdapter = new ArrayAdapter<>(AddAPIExerciseFragment.this.getContext(), android.R.layout.simple_list_item_1, exercisesList);
-                listView.setAdapter(arrayAdapter);
-                binding.getRoot();
-            }
-        });
         return  binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        txtName = binding.txtApiTitle;
-        txtMusclePart = binding.txtApiMusclePart;
-        txtDescription = binding.txtApiDescription;
+        txtName = binding.txtUserTitle;
+        txtMusclePart = binding.txtUserMusclePart;
+        txtDescription = binding.txtUserDescription;
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Exercises");
+        arrayAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, exercisesNameList);
+        listView.setAdapter(arrayAdapter);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                exercisesNameList.clear();
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    exercise = dataSnapshot.getValue(Exercise.class);
+                    exercise.setId(dataSnapshot.getKey());
+                    exercisesNameList.add(exercise.getName());
+                    exercisesList.add(exercise);
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
 
-        confirm = binding.btnConfirmApiExercise;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        confirm = binding.btnConfirmUserExercise;
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,19 +108,13 @@ public class AddAPIExerciseFragment extends Fragment{
     }
 
     @Override
-    public void onOptionsMenuClosed(@NonNull Menu menu) {
-        super.onOptionsMenuClosed(menu);
-    }
-
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
                 searchView = (SearchView) item.getActionView();
 
-                searchView.setQueryHint("wyszukaj cwiczenie");
+                searchView.setQueryHint(getString(R.string.search_exercise));
                 item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
@@ -152,8 +137,7 @@ public class AddAPIExerciseFragment extends Fragment{
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        if(arrayAdapter != null)
-                            arrayAdapter.getFilter().filter(newText);
+                        arrayAdapter.getFilter().filter(newText);
                         return false;
                     }
 
@@ -162,19 +146,12 @@ public class AddAPIExerciseFragment extends Fragment{
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        try {
-                            for( int i = 0; i< apiData.length(); i++){
-                                if(arrayAdapter.getItem(position).equals(apiData.getJSONObject(i).getString("title"))){
-                                    exercise.setName(apiData.getJSONObject(i).getString("title"));
-                                    txtName.setText(apiData.getJSONObject(i).getString("title"));
-                                    exercise.setMusclePart(apiData.getJSONObject(i).getString("category"));
-                                    txtMusclePart.setText(apiData.getJSONObject(i).getString("category"));
-                                    txtDescription.setText(apiData.getJSONObject(i).getString("description"));
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        int index = exercisesNameList.indexOf(arrayAdapter.getItem(position));
+                        txtName.setText(exercisesList.get(index).getName());
+                        txtMusclePart.setText(exercisesList.get(index).getMusclePart());
+                        exercise.setName(exercisesList.get(index).getName());
+                        exercise.setMusclePart(exercisesList.get(index).getMusclePart());
+
                         getActivity().setTitle(getString(R.string.add_exercise_title
                         ));
                         item.collapseActionView();

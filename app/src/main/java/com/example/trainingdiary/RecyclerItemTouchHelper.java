@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingdiary.adapters.ExerciseAdapter;
+import com.example.trainingdiary.adapters.WorkoutAdapter;
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
@@ -34,8 +35,16 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
-        getDefaultUIUtil().clearView(foregroundView);
+        String[] parts = viewHolder.toString().split("V");
+        System.out.println(parts[0]);
+        if(viewHolder != null && parts[0].equals("Exercise")) {
+            View foregroundView = ((ExerciseAdapter.ExerciseViewHolder) viewHolder).viewForeground;
+            getDefaultUIUtil().clearView(foregroundView);
+        }else
+        if(viewHolder != null && parts[0].equals("Workout")){
+            View foregroundView = ((WorkoutAdapter.WorkoutViewHolder)viewHolder).viewWorkoutForeground;
+            getDefaultUIUtil().clearView(foregroundView);
+        }
     }
 
     @Override
@@ -46,21 +55,43 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
         if(viewHolder != null){
-            View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
-            getDefaultUIUtil().onSelected(foregroundView);
+            String[] parts = viewHolder.toString().split("V");
+            System.out.println(parts[0]);
+            if(parts[0].equals("Exercise")){
+                View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
+                getDefaultUIUtil().onSelected(foregroundView);
+            }else
+            if(parts[0].equals("Workout")){
+                View foregroundView = ((WorkoutAdapter.WorkoutViewHolder)viewHolder).viewWorkoutForeground;
+                getDefaultUIUtil().onSelected(foregroundView);
+            }
         }
+
 
     }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
-        getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
+        String[] parts = viewHolder.toString().split("V");
+        System.out.println(parts[0]);
+        if(viewHolder != null && parts[0].equals("Exercise")){
+            View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
+            getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);}
+        else if(viewHolder != null && parts[0].equals("Workout")){
+            View foregroundView = ((WorkoutAdapter.WorkoutViewHolder)viewHolder).viewWorkoutForeground;
+            getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);}
     }
 
     @Override
     public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
-        getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
+        String[] parts = viewHolder.toString().split("V");
+        System.out.println(parts[0]);
+        if(viewHolder != null && parts[0].equals("Exercise")){
+            View foregroundView = ((ExerciseAdapter.ExerciseViewHolder)viewHolder).viewForeground;
+            getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
+        }else if(viewHolder != null && parts[0].equals("Workout")){
+            View foregroundView = ((WorkoutAdapter.WorkoutViewHolder)viewHolder).viewWorkoutForeground;
+            getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);}
+
     }
 }

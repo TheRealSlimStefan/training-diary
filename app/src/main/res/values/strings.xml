@@ -1,18 +1,49 @@
 <resources>
     <string name="app_name">Training Diary</string>
+    <string name="name">Imię</string>
+    <string name="surname">Nazwisko</string>
+    <string name="email">E-mail</string>
+    <string name="password">Hasło</string>
+    <string name="confirm_password">Powtórz hasło</string>
+    <string name="login">Zaloguj się</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="trainings">Treningi</string>
+    <string name="improve_technique">Popraw technikę</string>
+    <string name="exercises">Ćwiczenia</string>
     <string name="no_training">Brak stworzonych planów treningowych</string>
-    <string name="no_exercises">Brak stworzonych ćwiczeń</string>
+    <string name="no_exercises">Brak ćwiczeń</string>
+    <string name="no_workouts">Brak treningów</string>
     <string name="add_training_title">STWÓRZ TRENING</string>
     <string name="add_exercise_title">DODAJ ĆWICZENIE DO TRENINGU</string>
-    <string name="your_exercises_title">ĆWICZENIA</string>
+    <string name="select_exercise_title">WYBIERZ ĆWICZENIE</string>
+    <string name="your_exercises_title">TWOJE ĆWICZENIA</string>
     <string name="your_trainings_title">TWOJE PLANY TRENINGOWE</string>
+    <string name="improve_technique_title">POPRAW SWOJĄ TECHNIKĘ</string>
+    <string name="delete">USUŃ</string>
     <string name="add_your_exercise_button">Dodaj własne ćwiczenie</string>
     <string name="add_api_exercise_button">Dodaj ćwiczenie z API</string>
     <string name="name_exercise">Nazwa</string>
+    <string name="enter_training_title">Podaj tytuł treningu</string>
     <string name="name_exercise_placeholder">Podaj nazwę ćwiczenia</string>
     <string name="main_muscle_part">Główna partia mięśniowa</string>
     <string name="exercise_description">Opis</string>
     <string name="add_exercise_button">Dodaj</string>
+    <string name="search_exercise">Wyszukaj cwiczenie</string>
+    <string name="notification_title">Technika czyni mistrza</string>
+    <string name="notification_description">Zanim zaczniesz trening, przypomnij fundamenty techniki.</string>
+    <string name="channel_name">nazwa</string>
+    <string name="channel_description">kanał</string>
+
+    <string name="icon_youtube">Youtube</string>
+    <string name="technique_1_title">Fundamenty #1: Wyciskanie Sztangi Na Ławce Płaskiej</string>
+    <string name="technique_1_description">
+        Ćwiczenie wykonuje się w leżeniu na plecach na płaskiej ławce, stopy oparte są na podłożu, sztangę trzymamy nad sobą, nachwytem, nieco szerzej od szerokości barków.</string>
+    <string name="technique_2_title">Fundamenty #2: Przysiad Ze Sztangą</string>
+    <string name="technique_2_description">
+        Przysiady – popularne ćwiczenie wykorzystujące masę własnego ciała, angażujące mięśnie pośladkowe oraz mięśnie ud i łydek. Podczas zginania kolan angażowane są głównie mięśnie tylne ud, zwane kulszowo-goleniowymi.</string>
+    <string name="technique_3_title">Fundamenty #3: Martwy ciąg (klasyczny)</string>
+    <string name="technique_3_description">
+        Martwy ciąg (ang. deadlift) – dyscyplina sportowa oraz ćwiczenie polegające na podnoszeniu z podłoża ciężaru.</string>
     <string-array name="parts">
         <item>Barki</item>
         <item>Biceps</item>

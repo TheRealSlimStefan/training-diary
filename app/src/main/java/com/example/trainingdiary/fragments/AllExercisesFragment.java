@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -17,13 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.trainingdiary.Exercise;
+import com.example.trainingdiary.objectsClasses.Exercise;
 import com.example.trainingdiary.RecyclerItemHelperListener;
 import com.example.trainingdiary.RecyclerItemTouchHelper;
 import com.example.trainingdiary.adapters.ExerciseAdapter;
 import com.example.trainingdiary.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +53,7 @@ public class AllExercisesFragment extends Fragment implements RecyclerItemHelper
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        addExerciseButton = (FloatingActionButton) getView().findViewById(R.id.addExerciseActionButton);
+        addExerciseButton = (FloatingActionButton) getView().findViewById(R.id.btn_add_new_workout);
         addExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,12 +64,13 @@ public class AllExercisesFragment extends Fragment implements RecyclerItemHelper
         });
 
 
-        exercisesList = (RecyclerView) getView().findViewById(R.id.exercisesList);
+        exercisesList = (RecyclerView) getView().findViewById(R.id.list_exercises);
         exercisesList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         exercisesList.setItemAnimator(new DefaultItemAnimator());
         exercisesList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
 
-        reff = FirebaseDatabase.getInstance().getReference("Exercises");
+        reff = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Exercises");
+
 
         exerciseAdapter = new ExerciseAdapter(exercises);
         exercisesList.setAdapter(exerciseAdapter);
@@ -83,6 +83,7 @@ public class AllExercisesFragment extends Fragment implements RecyclerItemHelper
         reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                exercises.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     exercise = dataSnapshot.getValue(Exercise.class);
                     exercise.setId(dataSnapshot.getKey());
@@ -98,13 +99,13 @@ public class AllExercisesFragment extends Fragment implements RecyclerItemHelper
         });
     }
 
-
+    final boolean[] clickedUndo = {false};
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if(viewHolder instanceof ExerciseAdapter.ExerciseViewHolder){
+        if(viewHolder instanceof ExerciseAdapter.ExerciseViewHolder && (exercises.size()!=0)){
 
             String title = exercises.get(viewHolder.getAdapterPosition()).getName();
-            final boolean[] clickedUndo = {false};
+
 
             Exercise deletedExercise = exercises.get(viewHolder.getAdapterPosition());
             int deleteIndex = viewHolder.getAdapterPosition();
@@ -123,7 +124,11 @@ public class AllExercisesFragment extends Fragment implements RecyclerItemHelper
 
             });
             snackbar.setActionTextColor(Color.RED);
-            snackbar.show();
+            if(exercises.size() != 0){
+                snackbar.show();}
+            else{
+                reff.child(deletedExercise.getId()).removeValue();
+            }
             snackbar.addCallback( new Snackbar.Callback(){
                                       @Override
                                       public void onDismissed(Snackbar transientBottomBar, int event) {

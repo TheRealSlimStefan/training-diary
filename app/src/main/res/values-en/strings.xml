@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Training Diary</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="login">Log in</string>
+    <string name="register">Register</string>
+    <string name="trainings">Workouts</string>
+    <string name="improve_technique">Improve technique</string>
+    <string name="exercises">Exercises</string>
+    <string name="no_training">No training plans created</string>
+    <string name="no_exercises">No exercise</string>
+    <string name="no_workouts">No workouts</string>
+    <string name="add_training_title">CREATE WORKOUT</string>
+    <string name="add_exercise_title">ADD EXERCISE TO YOUR TRAINING</string>
+    <string name="select_exercise_title">CHOOSE AN EXERCISE</string>
+    <string name="your_exercises_title">YOUR EXERCISES</string>
+    <string name="your_trainings_title">YOUR TRAINING PLANS</string>
+    <string name="improve_technique_title">IMPROVE YOUR TECHNIQUE</string>
+    <string name="delete">DELETE</string>
+    <string name="add_your_exercise_button">Add your own exercise</string>
+    <string name="add_api_exercise_button">Add an API exercise</string>
+    <string name="name_exercise">Name</string>
+    <string name="enter_training_title">Enter a training title</string>
+    <string name="name_exercise_placeholder">Enter exercise name</string>
+    <string name="main_muscle_part">Main muscle part</string>
+    <string name="exercise_description">Description</string>
+    <string name="icon_youtube">Youtube</string>
+    <string name="technique_1_title">Foundations # 1: Barbell Pressing on a Flat Bench</string>
+    <string name="technique_1_description">The exercise is performed lying on the back on a flat bench, the feet are resting on the ground, the barbell is held above you, overgrip, a little wider than the width of the shoulders.</string>
+    <string name="technique_2_title">Foundations # 2: Barbell Squat</string>
+    <string name="technique_2_description">Squats - a popular exercise that uses your own body weight, engaging the gluteal muscles as well as the muscles of the thighs and calves. When bending the knees, mainly the back muscles of the thighs, known as the hamstring muscles, are involved.</string>
+    <string name="technique_3_title">Foundations # 3: Deadlift (classic)</string>
+    <string name="technique_3_description">Deadlift - a sport discipline and an exercise involving lifting a weight from the ground.</string>
+    <string name="add_exercise_button">Add</string>
+    <string name="search_exercise">Search for exercise</string>
+    <string name="notification_title">Technique makes perfect</string>
+    <string name="channel_name">name</string>
+    <string name="channel_description">channel</string>
+    <string name="notification_description">Before you start training, please review the basics of the technique.</string>
+</resources>

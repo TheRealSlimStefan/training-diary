@@ -14,15 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trainingdiary.MainActivity;
 import com.example.trainingdiary.R;
-import com.example.trainingdiary.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private Button register, login;
@@ -31,6 +28,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("email", edtTxtEmail.getText().toString());
+        outState.putString("password", edtTxtPassword.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        edtTxtEmail.setText(savedInstanceState.getString("email"));
+        edtTxtPassword.setText(savedInstanceState.getString("password"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +104,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
+        mAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this, "Logowanie nie powiodło sie", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    LoginActivity.this.finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "Logowanie nie powiodło sie", Toast.LENGTH_LONG).show();
                 }
@@ -109,5 +130,3 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 }
 
-
-//TODO przypominanie hasła

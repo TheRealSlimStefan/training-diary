@@ -27,8 +27,7 @@ public class AddExerciseFragment extends Fragment {
 
         String[] muscleParts = getResources().getStringArray(R.array.parts);
         ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), R.layout.dropdown_muscle_parts_item, muscleParts);
-
-       binding.autoCompleteTextView.setAdapter(arrayAdapter);
+        binding.autoCompleteTextView.setAdapter(arrayAdapter);
 
         return binding.getRoot();
     }
@@ -37,7 +36,7 @@ public class AddExerciseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        confirm = (Button)  getView().findViewById(R.id.confirmExerciseButton);
+        confirm = (Button)  getView().findViewById(R.id.btn_confirm_user_exercise);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

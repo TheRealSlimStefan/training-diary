@@ -4,16 +4,16 @@
     <item
         android:id="@+id/nav_workouts"
         android:icon="@drawable/ic_article"
-        android:title="Treningi"/>
+        android:title="@string/trainings"/>
 
     <item
-        android:id="@+id/nav_add_workout"
-        android:icon="@drawable/ic_add_box"
-        android:title="Popraw technikę"/>
+        android:id="@+id/nav_improve_technique"
+        android:icon="@drawable/ic_baseline_school_24"
+        android:title="@string/improve_technique"/>
 
     <item
         android:id="@+id/nav_exercises"
         android:icon="@drawable/ic_baseline_fitness_center_24"
-        android:title="Ćwiczenia"/>
+        android:title="@string/exercises"/>
 
 </menu>

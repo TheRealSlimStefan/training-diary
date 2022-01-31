@@ -66,7 +66,7 @@
         android:layout_marginTop="32dp"/>
 
     <Button
-        android:id="@+id/confirmExerciseButton"
+        android:id="@+id/btn_confirm_user_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"

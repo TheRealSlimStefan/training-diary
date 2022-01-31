@@ -5,60 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@drawable/line"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:letterSpacing="0.1"
-            android:text="@string/add_training_title"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_workouts"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.106">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="409dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/btnAddExercise"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/color_light"
-            android:onClick="onClickAddExercise"
-            android:orientation="horizontal"
-            android:text="@string/add_your_exercise_button"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
-
-        <Button
-            android:id="@+id/btnAddAPIExercise"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/color_light"
-            android:onClick="onClickAddAPIExercise"
-            android:orientation="horizontal"
-            android:text="@string/add_api_exercise_button"
-            app:layout_constraintEnd_toEndOf="@+id/btnAddExercise"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/btnAddExercise"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddExercise" />
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_new_workout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/add_training_title"
+            android:focusable="true"
+            android:minWidth="32dp"
+            android:minHeight="32dp"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            app:backgroundTint="@color/grey_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.94"
+            app:maxImageSize="67dp"
+            app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
